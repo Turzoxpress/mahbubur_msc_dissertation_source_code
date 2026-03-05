@@ -1,0 +1,49 @@
+Spring Boot Library API (com.mahbubur.restcompare)
+
+Run
+- Configure MySQL in: src/main/resources/application.yml
+- Start the server:
+  - (If using Maven) mvn spring-boot:run
+  - Or build a jar and run it.
+
+Base URL: http://localhost:8090
+
+Core CRUD APIs
+- Books:
+  - GET    /api/books?page=&size=
+  - GET    /api/books/{id}
+  - POST   /api/books
+  - POST   /api/books/bulk
+  - PUT    /api/books/{id}
+  - PATCH  /api/books/{id}/stock
+  - DELETE /api/books/{id}
+  - GET    /api/books/isbn/{isbn}
+  - GET    /api/books/search?q=&page=&size=
+  - GET    /api/books/available?page=&size=
+
+- Members:
+  - GET    /api/members?page=&size=
+  - GET    /api/members/{id}
+  - POST   /api/members
+  - PUT    /api/members/{id}
+  - DELETE /api/members/{id}
+  - GET    /api/members/membership/{membershipNo}
+  - GET    /api/members/search?q=&page=&size=
+
+- Loans:
+  - GET    /api/loans?page=&size=
+  - GET    /api/loans/{id}
+  - POST   /api/loans                 (admin CRUD; does NOT change stock)
+  - PUT    /api/loans/{id}
+  - DELETE /api/loans/{id}
+  - POST   /api/loans/checkout        (proper checkout: decrements book stock)
+  - POST   /api/loans/{id}/return     (proper return: increments book stock)
+  - POST   /api/loans/{id}/renew      (extend due date)
+  - GET    /api/loans/active?memberId=&page=&size=
+  - GET    /api/loans/overdue?asOf=YYYY-MM-DD&page=&size=
+  - GET    /api/loans/expanded?page=&size=
+  - GET    /api/loans/expanded/{id}
+
+Utility
+- GET /api/ping
+- GET /api/stats
