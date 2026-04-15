@@ -1,0 +1,77 @@
+Library Management System - Manual and Automated API Testing Guide
+===============================================================
+
+A. Manual testing
+-----------------
+Use manual testing first to confirm both backends behave the same.
+
+Option 1: Frontend
+- Start Spring Boot on http://localhost:8090 or Django on http://localhost:8000
+- Start the React frontend on http://localhost:5173
+- Select the backend URL in the dashboard
+- Test the same endpoints on both backends:
+  - GET /api/ping
+  - GET /api/books?page=1&size=10
+  - GET /api/books/search?q=Library&page=1&size=5
+  - POST /api/books
+  - POST /api/members
+  - POST /api/loans/checkout
+  - GET /api/loans/expanded?page=1&size=10
+  - GET /api/stats
+- Export the history CSV if needed
+
+Option 2: REST Client or Postman
+- Use each backend's testing/manual/manual-tests.http file
+- Run the same requests on both backends and compare:
+  - response status
+  - response JSON structure
+  - validation errors
+  - timings for quick checks
+
+Option 3: curl
+- Good for quick smoke checks from the terminal
+
+B. Automated performance testing
+--------------------------------
+Use k6 for official benchmark numbers.
+
+Recommended order:
+1. smoke.js
+2. read-heavy.js
+3. write-heavy.js
+4. mixed-workload.js
+
+Example commands:
+Spring Boot:
+  k6 run -e BASE_URL=http://localhost:8090 testing/k6/read-heavy.js
+
+Django:
+  k6 run -e BASE_URL=http://localhost:8000 testing/k6/read-heavy.js
+
+C. Best practice for fair performance comparison
+------------------------------------------------
+- Use the same MySQL version and same machine for both backends
+- Use the same seed data in both databases
+- Run only one backend at a time during final benchmark runs
+- Close other heavy applications
+- Run one warm-up test before saving final numbers
+- Run each benchmark at least 3 times
+- Save these values:
+  - requests/sec
+  - avg latency
+  - p95 latency
+  - p99 latency
+  - error rate
+  - CPU usage
+  - memory usage
+- Do not use frontend/browser timings as final benchmark evidence
+- Use frontend results only for quick comparison and screenshots
+
+D. Suggested dissertation workflow
+----------------------------------
+1. Manual parity check on both backends
+2. Load the same seed SQL into both databases
+3. Warm up both servers
+4. Run k6 tests one script at a time
+5. Record results in tables
+6. Compare Spring vs Django by workload type

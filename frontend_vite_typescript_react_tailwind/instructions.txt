@@ -1,0 +1,82 @@
+Library Management System - Frontend
+====================================
+
+1) Purpose
+----------
+This frontend now has two testing roles:
+- manual API testing against both backends
+- visual review of real k6 benchmark exports
+
+Use it for:
+- quick endpoint checks
+- comparing Spring Boot vs Django visually
+- collecting screenshots
+- small browser-side request batches
+- importing k6 --summary-export JSON files and reviewing full k6 metrics visually
+
+It is still NOT the tool that executes k6 inside the browser.
+Run k6 in the terminal, then import the exported JSON into the "k6 visual" tab.
+
+2) Required software
+--------------------
+- Node.js 18+
+- npm
+- k6 (only if you want to run benchmark scripts from the same project folder)
+
+3) Install libraries
+--------------------
+npm install
+
+4) Configure backend URLs
+-------------------------
+The frontend defaults to:
+- Spring Boot: http://localhost:8090
+- Django: http://localhost:8000
+
+You can change the base URL in the dashboard at runtime.
+
+5) Start frontend
+-----------------
+npm run dev
+
+Open:
+http://localhost:5173
+
+6) Manual testing workflow
+--------------------------
+- Start either Spring Boot or Django backend
+- Open the frontend
+- Select the backend URL
+- Use "Single request" to test GET/POST/PUT/PATCH/DELETE endpoints
+- Use "Quick load" for small browser-side comparisons
+- Use "History" to export CSV and inspect responses
+
+7) Full k6 visual workflow
+--------------------------
+Step A - Run k6 in terminal
+Example Spring read-heavy run:
+BASE_URL=http://localhost:8090 VUS=20 DURATION=30s k6 run --summary-export=./results/spring-read-heavy.json testing/k6/read-heavy.js
+
+Example Django read-heavy run:
+BASE_URL=http://localhost:8000 VUS=20 DURATION=30s k6 run --summary-export=./results/django-read-heavy.json testing/k6/read-heavy.js
+
+Step B - Import into frontend
+- Open the "k6 visual" tab
+- Choose framework and scenario
+- Import the JSON file or paste its content
+- The dashboard will show:
+  avg latency, median, p95, p99, min, max,
+  requests/sec, total requests, failed requests,
+  error %, iterations, checks, peak VUs,
+  data sent/received, and threshold results
+
+Step C - Export comparison evidence
+- Export normalized JSON or CSV from the same tab
+- Use those files for dissertation tables and appendix evidence
+
+8) How to test properly
+-----------------------
+- Use this frontend for manual validation, screenshots, and k6 result review.
+- Use k6 CLI for real benchmark execution.
+- Keep the same dataset loaded in both backends.
+- Compare the same endpoint and same query parameters across both systems.

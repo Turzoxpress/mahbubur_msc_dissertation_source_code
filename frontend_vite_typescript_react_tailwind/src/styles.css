@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 50%, #fff1f2 100%);
+}
+
+body {
+  min-height: 100vh;
+  color: #0f172a;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.25);
+}
