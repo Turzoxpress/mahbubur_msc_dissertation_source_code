@@ -1,0 +1,85 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: testing/k6/smoke.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 10m30s max duration (incl. graceful stop):
+              * default: 10 iterations shared among 1 VUs (maxDuration: 10m0s, gracefulStop: 30s)
+
+
+running (00m01.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+default   [   0% ] 1 VUs  00m01.0s/10m0s  00/10 shared iters
+
+running (00m02.0s), 1/1 VUs, 1 complete and 0 interrupted iterations
+default   [  10% ] 1 VUs  00m02.0s/10m0s  01/10 shared iters
+
+running (00m03.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+default   [  20% ] 1 VUs  00m03.0s/10m0s  02/10 shared iters
+
+running (00m04.0s), 1/1 VUs, 3 complete and 0 interrupted iterations
+default   [  30% ] 1 VUs  00m04.0s/10m0s  03/10 shared iters
+
+running (00m05.0s), 1/1 VUs, 4 complete and 0 interrupted iterations
+default   [  40% ] 1 VUs  00m05.0s/10m0s  04/10 shared iters
+
+running (00m06.0s), 1/1 VUs, 5 complete and 0 interrupted iterations
+default   [  50% ] 1 VUs  00m06.0s/10m0s  05/10 shared iters
+
+running (00m07.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+default   [  60% ] 1 VUs  00m07.0s/10m0s  06/10 shared iters
+
+running (00m08.0s), 1/1 VUs, 7 complete and 0 interrupted iterations
+default   [  70% ] 1 VUs  00m08.0s/10m0s  07/10 shared iters
+
+running (00m09.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+default   [  80% ] 1 VUs  00m09.0s/10m0s  08/10 shared iters
+
+running (00m10.0s), 1/1 VUs, 9 complete and 0 interrupted iterations
+default   [  90% ] 1 VUs  00m10.0s/10m0s  09/10 shared iters
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<1000' p(95)=38.67ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 10      0.955183/s
+    checks_succeeded...: 100.00% 10 out of 10
+    checks_failed......: 0.00%   0 out of 10
+
+    ✓ ping status 200
+
+    HTTP
+    http_req_duration..............: avg=16.97ms min=4.86ms med=14.82ms max=47.99ms p(90)=29.36ms p(95)=38.67ms
+      { expected_response:true }...: avg=16.97ms min=4.86ms med=14.82ms max=47.99ms p(90)=29.36ms p(95)=38.67ms
+    http_req_failed................: 0.00%  0 out of 10
+    http_reqs......................: 10     0.955183/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.04s   min=1.01s  med=1.03s   max=1.09s   p(90)=1.07s   p(95)=1.08s  
+    iterations.....................: 10     0.955183/s
+    vus............................: 1      min=1       max=1
+    vus_max........................: 1      min=1       max=1
+
+    NETWORK
+    data_received..................: 3.9 kB 375 B/s
+    data_sent......................: 780 B  75 B/s
+
+
+
+
+running (00m10.5s), 0/1 VUs, 10 complete and 0 interrupted iterations
+default ✓ [ 100% ] 1 VUs  00m10.5s/10m0s  10/10 shared iters

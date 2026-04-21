@@ -1,0 +1,115 @@
+Library Management System - Python Django REST Backend
+====================================================
+
+1) Project structure
+--------------------
+config/              -> Django settings, root urls, ASGI, WSGI
+library_api/
+  api/               -> central endpoint names + urlpatterns
+  controllers/       -> API views/controllers
+  models/            -> Book, Member, Loan models
+  serializers/       -> request/response serializers
+  services/          -> business logic
+  pagination.py      -> standard paginated responses
+  exceptions.py      -> shared API error handler
+
+database/
+  library_seed.sql
+
+testing/manual/
+  manual-tests.http
+
+testing/k6/
+  smoke.js, read-heavy.js, write-heavy.js, mixed-workload.js
+
+2) Required software
+--------------------
+- Python 3.12+
+- pip + virtualenv
+- MySQL 8+
+- k6
+
+3) Create database
+------------------
+mysql -u root -p
+
+CREATE DATABASE IF NOT EXISTS rest_compare_django CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+4) Install libraries
+--------------------
+python -m venv .venv
+
+Linux/macOS:
+source .venv/bin/activate
+
+Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+
+pip install --upgrade pip
+pip install -r requirements.txt
+
+5) Configure settings
+---------------------
+Use config/settings.py or environment values from .env.example:
+
+DB_NAME=rest_compare_django
+DB_USER=root
+DB_PASSWORD=12345678
+DB_HOST=127.0.0.1
+DB_PORT=3306
+
+6) Start the server
+-------------------
+python manage.py migrate
+python manage.py runserver 0.0.0.0:8000
+
+Server URL:
+http://localhost:8000
+
+7) Load seed data
+-----------------
+mysql -u root -p rest_compare_django < database/library_seed.sql
+
+8) Manual API testing
+---------------------
+Option A - VS Code REST Client
+Open testing/manual/manual-tests.http and run the requests one by one.
+
+Option B - curl
+curl http://localhost:8000/api/ping
+curl "http://localhost:8000/api/books?page=1&size=10"
+curl "http://localhost:8000/api/members/search?q=Member&page=1&size=5"
+curl http://localhost:8000/api/stats
+
+Option C - Frontend
+Run the React frontend and switch the backend URL to:
+http://localhost:8000
+
+9) Automated performance testing with k6
+----------------------------------------
+Smoke test with summary export:
+k6 run -e BASE_URL=http://localhost:8000 --summary-export=./results/smoke.json testing/k6/smoke.js
+
+Read-heavy with summary export:
+k6 run -e BASE_URL=http://localhost:8000 -e VUS=20 -e DURATION=30s --summary-export=./results/read-heavy.json testing/k6/read-heavy.js
+
+Write-heavy with summary export:
+k6 run -e BASE_URL=http://localhost:8000 -e VUS=5 -e DURATION=20s --summary-export=./results/write-heavy.json testing/k6/write-heavy.js
+
+Mixed with summary export:
+k6 run -e BASE_URL=http://localhost:8000 -e TARGET_VUS=10 --summary-export=./results/mixed-workload.json testing/k6/mixed-workload.js
+
+10) How to test performance properly
+------------------------------------
+- Use exactly the same seed data as the Spring project.
+- Run one warm-up test first.
+- Run each benchmark at least 3 times.
+- Save p95, p99, requests/sec, error rate, CPU usage, and memory.
+- Do not browse or use the frontend during your official benchmark runs.
+- Test Django and Spring separately under the same machine conditions.
+
+11) Visual review of k6 results
+-------------------------------
+- After each run, keep the JSON file created by --summary-export.
+- Open the frontend project and use the "k6 visual" tab to import those JSON files.
+- Save exported CSV/JSON from the frontend as clean dissertation evidence.

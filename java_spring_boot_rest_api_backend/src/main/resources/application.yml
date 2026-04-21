@@ -1,0 +1,28 @@
+server:
+  port: ${SERVER_PORT:8090}
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/rest_compare_spring?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:12345678}
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL:INFO}

@@ -1,0 +1,152 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: testing/k6/read-heavy.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 1m0s max duration (incl. graceful stop):
+              * readers: 20 looping VUs for 30s (gracefulStop: 30s)
+
+
+running (0m01.0s), 20/20 VUs, 0 complete and 0 interrupted iterations
+readers   [   3% ] 20 VUs  01.0s/30s
+
+running (0m02.0s), 20/20 VUs, 8 complete and 0 interrupted iterations
+readers   [   7% ] 20 VUs  02.0s/30s
+
+running (0m03.0s), 20/20 VUs, 20 complete and 0 interrupted iterations
+readers   [  10% ] 20 VUs  03.0s/30s
+
+running (0m04.0s), 20/20 VUs, 31 complete and 0 interrupted iterations
+readers   [  13% ] 20 VUs  04.0s/30s
+
+running (0m05.0s), 20/20 VUs, 45 complete and 0 interrupted iterations
+readers   [  17% ] 20 VUs  05.0s/30s
+
+running (0m06.0s), 20/20 VUs, 53 complete and 0 interrupted iterations
+readers   [  20% ] 20 VUs  06.0s/30s
+
+running (0m07.0s), 20/20 VUs, 67 complete and 0 interrupted iterations
+readers   [  23% ] 20 VUs  07.0s/30s
+
+running (0m08.0s), 20/20 VUs, 78 complete and 0 interrupted iterations
+readers   [  27% ] 20 VUs  08.0s/30s
+
+running (0m09.0s), 20/20 VUs, 86 complete and 0 interrupted iterations
+readers   [  30% ] 20 VUs  09.0s/30s
+
+running (0m10.0s), 20/20 VUs, 95 complete and 0 interrupted iterations
+readers   [  33% ] 20 VUs  10.0s/30s
+
+running (0m11.0s), 20/20 VUs, 104 complete and 0 interrupted iterations
+readers   [  37% ] 20 VUs  11.0s/30s
+
+running (0m12.0s), 20/20 VUs, 114 complete and 0 interrupted iterations
+readers   [  40% ] 20 VUs  12.0s/30s
+
+running (0m13.0s), 20/20 VUs, 122 complete and 0 interrupted iterations
+readers   [  43% ] 20 VUs  13.0s/30s
+
+running (0m14.0s), 20/20 VUs, 131 complete and 0 interrupted iterations
+readers   [  47% ] 20 VUs  14.0s/30s
+
+running (0m15.0s), 20/20 VUs, 140 complete and 0 interrupted iterations
+readers   [  50% ] 20 VUs  15.0s/30s
+
+running (0m16.0s), 20/20 VUs, 149 complete and 0 interrupted iterations
+readers   [  53% ] 20 VUs  16.0s/30s
+
+running (0m17.0s), 20/20 VUs, 157 complete and 0 interrupted iterations
+readers   [  57% ] 20 VUs  17.0s/30s
+
+running (0m18.0s), 20/20 VUs, 168 complete and 0 interrupted iterations
+readers   [  60% ] 20 VUs  18.0s/30s
+
+running (0m19.0s), 20/20 VUs, 175 complete and 0 interrupted iterations
+readers   [  63% ] 20 VUs  19.0s/30s
+
+running (0m20.0s), 20/20 VUs, 187 complete and 0 interrupted iterations
+readers   [  67% ] 20 VUs  20.0s/30s
+
+running (0m21.0s), 20/20 VUs, 196 complete and 0 interrupted iterations
+readers   [  70% ] 20 VUs  21.0s/30s
+
+running (0m22.0s), 20/20 VUs, 203 complete and 0 interrupted iterations
+readers   [  73% ] 20 VUs  22.0s/30s
+
+running (0m23.0s), 20/20 VUs, 214 complete and 0 interrupted iterations
+readers   [  77% ] 20 VUs  23.0s/30s
+
+running (0m24.0s), 20/20 VUs, 224 complete and 0 interrupted iterations
+readers   [  80% ] 20 VUs  24.0s/30s
+
+running (0m25.0s), 20/20 VUs, 232 complete and 0 interrupted iterations
+readers   [  83% ] 20 VUs  25.0s/30s
+
+running (0m26.0s), 20/20 VUs, 242 complete and 0 interrupted iterations
+readers   [  87% ] 20 VUs  26.0s/30s
+
+running (0m27.0s), 20/20 VUs, 249 complete and 0 interrupted iterations
+readers   [  90% ] 20 VUs  27.0s/30s
+
+running (0m28.0s), 20/20 VUs, 260 complete and 0 interrupted iterations
+readers   [  93% ] 20 VUs  28.0s/30s
+
+running (0m29.0s), 20/20 VUs, 269 complete and 0 interrupted iterations
+readers   [  97% ] 20 VUs  29.0s/30s
+
+running (0m30.0s), 20/20 VUs, 276 complete and 0 interrupted iterations
+readers   [ 100% ] 20 VUs  30.0s/30s
+
+running (0m31.0s), 09/20 VUs, 287 complete and 0 interrupted iterations
+readers ↓ [ 100% ] 20 VUs  30s
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<1500' p(95)=519.79ms
+    ✓ 'p(99)<2500' p(99)=630.94ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 1184    37.757943/s
+    checks_succeeded...: 100.00% 1184 out of 1184
+    checks_failed......: 0.00%   0 out of 1184
+
+    ✓ books 200
+    ✓ search 200
+    ✓ expanded 200
+    ✓ stats 200
+
+    HTTP
+    http_req_duration..............: avg=264.99ms min=23.3ms med=231.98ms max=726.97ms p(90)=446.94ms p(95)=519.79ms
+      { expected_response:true }...: avg=264.99ms min=23.3ms med=231.98ms max=726.97ms p(90)=446.94ms p(95)=519.79ms
+    http_req_failed................: 0.00%  0 out of 1184
+    http_reqs......................: 1184   37.757943/s
+
+    EXECUTION
+    iteration_duration.............: avg=2.08s    min=1.27s  med=2.08s    max=3.11s    p(90)=2.54s    p(95)=2.66s   
+    iterations.....................: 296    9.439486/s
+    vus............................: 9      min=9         max=20
+    vus_max........................: 20     min=20        max=20
+
+    NETWORK
+    data_received..................: 5.0 MB 160 kB/s
+    data_sent......................: 115 kB 3.7 kB/s
+
+
+
+
+running (0m31.4s), 00/20 VUs, 296 complete and 0 interrupted iterations
+readers ✓ [ 100% ] 20 VUs  30s

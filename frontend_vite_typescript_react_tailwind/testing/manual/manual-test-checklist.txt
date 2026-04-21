@@ -1,0 +1,13 @@
+Manual test checklist
+=====================
+
+1. Ping backend
+2. List books
+3. Search books
+4. Create a new book
+5. Create a new member
+6. Checkout a book
+7. View expanded loans
+8. Check stats
+9. Export history CSV
+10. Switch backend and repeat the same steps
