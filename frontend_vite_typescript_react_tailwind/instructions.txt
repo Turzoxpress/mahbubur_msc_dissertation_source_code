@@ -1,0 +1,36 @@
+Frontend quick use
+
+1. Start the frontend
+   npm install
+   npm run dev
+
+2. Use tabs in this order
+   - Single request
+   - k6 upload
+   - History
+
+3. In k6 upload
+   - Choose Test summary to upload k6 summary JSON files
+   - Choose CPU summary to upload pidstat .txt files
+
+4. For smoke charts upload files like
+   EV-K6-SB-SMOKE-VU1-M1-summary.json
+   EV-K6-DJ-SMOKE-VU1-M1-summary.json
+
+5. For read-heavy charts upload files like
+   EV-K6-SB-READ-VU20-M1-summary.json
+   EV-K6-DJ-READ-VU20-M1-summary.json
+
+6. For CPU/RAM charts upload files like
+   EV-RES-SB-SMOKE-VU1-M1-pidstat.txt
+   EV-RES-DJ-READ-VU20-M1-pidstat.txt
+
+7. The frontend reads the file name automatically and shows:
+   - framework
+   - scenario
+   - run type
+   - VU level
+   - charts
+   - statistics
+
+8. No dropdown selection is needed for the uploaded file metadata.

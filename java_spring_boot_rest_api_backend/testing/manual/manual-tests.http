@@ -1,0 +1,64 @@
+### Ping
+GET http://localhost:8090/api/ping
+
+### List books
+GET http://localhost:8090/api/books?page=1&size=10
+
+### Search books
+GET http://localhost:8090/api/books/search?q=Library&page=1&size=5
+
+### Search members
+GET http://localhost:8090/api/members/search?q=Member&page=1&size=5
+
+### Create a book
+POST http://localhost:8090/api/books
+Content-Type: application/json
+
+{
+  "isbn": "ISBN900001",
+  "title": "Modern Library Systems",
+  "author": "Research Student",
+  "published_year": 2026,
+  "available_copies": 8
+}
+
+### Create a member
+POST http://localhost:8090/api/members
+Content-Type: application/json
+
+{
+  "membership_no": "M900001",
+  "full_name": "Test Member",
+  "email": "test.member@example.com"
+}
+
+### Checkout a book
+POST http://localhost:8090/api/loans/checkout
+Content-Type: application/json
+
+{
+  "book_id": 1,
+  "member_id": 1,
+  "loan_date": "2026-04-14",
+  "due_date": "2026-04-28"
+}
+
+### Active loans
+GET http://localhost:8090/api/loans/active?memberId=1&page=1&size=10
+
+### Renew a loan
+POST http://localhost:8090/api/loans/1/renew
+Content-Type: application/json
+
+{
+  "due_date": "2026-05-05"
+}
+
+### Return a loan
+POST http://localhost:8090/api/loans/1/return
+
+### Expanded loans
+GET http://localhost:8090/api/loans/expanded?page=1&size=10
+
+### Stats
+GET http://localhost:8090/api/stats

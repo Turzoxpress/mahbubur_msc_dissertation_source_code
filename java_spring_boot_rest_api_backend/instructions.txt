@@ -1,0 +1,106 @@
+Library Management System - Java Spring Boot Backend
+===================================================
+
+1) Project structure
+--------------------
+src/main/java/com/mahbubur/restcompare/
+  api/           -> central endpoint constants
+  config/        -> Spring MVC / CORS settings
+  controller/    -> HTTP controllers
+  model/dto/     -> request + response DTOs
+  model/entity/  -> JPA entities
+  repository/    -> database access
+  service/       -> business logic
+  exception/     -> shared API exception handling
+
+database/
+  library_seed.sql
+
+testing/manual/
+  manual-tests.http
+
+testing/k6/
+  smoke.js, read-heavy.js, write-heavy.js, mixed-workload.js
+
+2) Required software
+--------------------
+- Java JDK 21+ (JDK 25 was used in the report)
+- Maven 3.9+
+- MySQL 8+
+- k6 (for automated performance tests)
+
+3) Create database
+------------------
+mysql -u root -p
+
+CREATE DATABASE IF NOT EXISTS rest_compare_spring CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+4) Configure database login
+---------------------------
+Edit src/main/resources/application.yml
+or set environment variables from .env.example:
+
+SERVER_PORT=8090
+DB_URL=jdbc:mysql://localhost:3306/rest_compare_spring?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+DB_USERNAME=root
+DB_PASSWORD=12345678
+
+5) Start the server
+-------------------
+mvn clean spring-boot:run
+
+Server URL:
+http://localhost:8090
+
+6) Load seed data
+-----------------
+After the server creates tables, run:
+
+mysql -u root -p rest_compare_spring < database/library_seed.sql
+
+7) Manual API testing
+---------------------
+Option A - VS Code REST Client
+Open testing/manual/manual-tests.http and click "Send Request".
+
+Option B - curl examples
+curl http://localhost:8090/api/ping
+curl "http://localhost:8090/api/books?page=1&size=10"
+curl "http://localhost:8090/api/books/search?q=Library&page=1&size=5"
+curl http://localhost:8090/api/stats
+
+Option C - Frontend
+Run the React frontend project and point it to:
+http://localhost:8090
+
+8) Automated performance testing with k6
+----------------------------------------
+Install k6 and run from this project folder.
+
+Smoke test with summary export:
+k6 run -e BASE_URL=http://localhost:8090 --summary-export=./results/smoke.json testing/k6/smoke.js
+
+Read-heavy test with summary export:
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=20 -e DURATION=30s --summary-export=./results/read-heavy.json testing/k6/read-heavy.js
+
+
+9) How to test performance properly
+-----------------------------------
+- Start only one backend at a time when producing final benchmark numbers.
+- Use the same seed data size in both databases.
+- Run one warm-up test before recording results.
+- Run each k6 script at least 3 times and average the results.
+- Record p95, p99, requests/sec, error rate, CPU usage, and RAM usage.
+- Keep other heavy apps closed during testing.
+- Use the frontend only for manual/visual checks, not for final benchmark numbers.
+
+10) Suggested metrics to save in your dissertation
+--------------------------------------------------
+- Throughput (requests/sec)
+- Average latency
+- p95 latency
+- p99 latency
+- Error rate
+- CPU %
+- RAM usage
+

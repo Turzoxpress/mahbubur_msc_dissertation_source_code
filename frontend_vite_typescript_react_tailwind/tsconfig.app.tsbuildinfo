@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/BackendSwitcher.tsx","./src/components/HistoryTable.tsx","./src/components/JsonPanel.tsx","./src/components/K6VisualPanel.tsx","./src/components/RequestBuilder.tsx","./src/components/ui.tsx","./src/lib/http.ts","./src/lib/k6.ts","./src/lib/stats.ts"],"version":"5.9.3"}

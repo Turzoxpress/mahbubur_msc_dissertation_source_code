@@ -1,0 +1,27 @@
+API_BASE = "api"
+
+PING = "ping"
+STATS = "stats"
+
+BOOKS = "books"
+BOOKS_SEARCH = "books/search"
+BOOKS_AVAILABLE = "books/available"
+BOOKS_BULK = "books/bulk"
+BOOKS_BY_ISBN = "books/isbn/<str:isbn>"
+BOOK_STOCK = "books/<int:book_id>/stock"
+BOOK_BY_ID = "books/<int:book_id>"
+
+MEMBERS = "members"
+MEMBERS_SEARCH = "members/search"
+MEMBER_BY_MEMBERSHIP = "members/membership/<str:membership_no>"
+MEMBER_BY_ID = "members/<int:member_id>"
+
+LOANS = "loans"
+LOAN_CHECKOUT = "loans/checkout"
+LOAN_ACTIVE = "loans/active"
+LOAN_OVERDUE = "loans/overdue"
+LOAN_EXPANDED = "loans/expanded"
+LOAN_EXPANDED_DETAIL = "loans/expanded/<int:loan_id>"
+LOAN_RETURN = "loans/<int:loan_id>/return"
+LOAN_RENEW = "loans/<int:loan_id>/renew"
+LOAN_BY_ID = "loans/<int:loan_id>"

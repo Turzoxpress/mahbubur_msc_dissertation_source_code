@@ -1,0 +1,163 @@
+SPRING BOOT K6 INSTRUCTIONS
+
+Project path:
+~/Documents/Research/v5/java_spring_boot_rest_api_backend
+
+Evidence path:
+~/Documents/Research/v5/FPR_EVIDENCE_23090383
+
+Current Spring monitoring PIDs used in the last run:
+657504,657655
+
+If Spring is restarted, check the new PIDs first:
+pgrep -f spring-boot
+
+
+
+==================================================
+1. OPEN PROJECT FOLDER
+==================================================
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+mkdir -p results
+
+==================================================
+2. SMOKE TEST
+==================================================
+What smoke.js tests:
+GET /api/ping
+
+2.1 Warm-up monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-W1-pidstat.txt
+
+2.2 Warm-up k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=1 -e ITERATIONS=10 --summary-export=results/EV-K6-SB-SMOKE-VU1-W1-summary.json testing/k6/smoke.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-W1-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+2.3 Measured M1 monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-M1-pidstat.txt
+
+2.4 Measured M1 k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=1 -e ITERATIONS=10 --summary-export=results/EV-K6-SB-SMOKE-VU1-M1-summary.json testing/k6/smoke.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-M1-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+2.5 Measured M2 monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-M2-pidstat.txt
+
+2.6 Measured M2 k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=1 -e ITERATIONS=10 --summary-export=results/EV-K6-SB-SMOKE-VU1-M2-summary.json testing/k6/smoke.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-M2-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+2.7 Measured M3 monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-M3-pidstat.txt
+
+2.8 Measured M3 k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=1 -e ITERATIONS=10 --summary-export=results/EV-K6-SB-SMOKE-VU1-M3-summary.json testing/k6/smoke.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-M3-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+Smoke files created:
+JSON files:
+results/EV-K6-SB-SMOKE-VU1-W1-summary.json
+results/EV-K6-SB-SMOKE-VU1-M1-summary.json
+results/EV-K6-SB-SMOKE-VU1-M2-summary.json
+results/EV-K6-SB-SMOKE-VU1-M3-summary.json
+
+Console files:
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-W1-console.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-M1-console.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-M2-console.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-SMOKE-VU1-M3-console.txt
+
+Monitoring files:
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-W1-pidstat.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-M1-pidstat.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-M2-pidstat.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-SMOKE-VU1-M3-pidstat.txt
+
+Tables for smoke files to fill:
+- Table 4.5
+- Appendix C.1
+- Appendix C.2
+- Appendix C.3
+- Table 5.2
+
+==================================================
+3. READ-HEAVY TEST
+==================================================
+What read-heavy.js tests:
+GET /api/books?page=1&size=20
+GET /api/books/search?q=Library&page=1&size=10
+GET /api/loans/expanded?page=1&size=20
+GET /api/stats
+
+3.1 Warm-up monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-W1-pidstat.txt
+
+3.2 Warm-up k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=20 -e DURATION=30s --summary-export=results/EV-K6-SB-READ-VU20-W1-summary.json testing/k6/read-heavy.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-W1-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+3.3 Measured M1 monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-M1-pidstat.txt
+
+3.4 Measured M1 k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=20 -e DURATION=30s --summary-export=results/EV-K6-SB-READ-VU20-M1-summary.json testing/k6/read-heavy.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-M1-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+3.5 Measured M2 monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-M2-pidstat.txt
+
+3.6 Measured M2 k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=20 -e DURATION=30s --summary-export=results/EV-K6-SB-READ-VU20-M2-summary.json testing/k6/read-heavy.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-M2-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+3.7 Measured M3 monitoring
+pidstat -r -u -h -p 657504,657655 1 > ~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-M3-pidstat.txt
+
+3.8 Measured M3 k6 run
+cd ~/Documents/Research/v5/java_spring_boot_rest_api_backend
+k6 run -e BASE_URL=http://localhost:8090 -e VUS=20 -e DURATION=30s --summary-export=results/EV-K6-SB-READ-VU20-M3-summary.json testing/k6/read-heavy.js | tee ~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-M3-console.txt
+
+After the k6 run ends, stop pidstat with Ctrl + C.
+
+Read-heavy files created:
+JSON files:
+results/EV-K6-SB-READ-VU20-W1-summary.json
+results/EV-K6-SB-READ-VU20-M1-summary.json
+results/EV-K6-SB-READ-VU20-M2-summary.json
+results/EV-K6-SB-READ-VU20-M3-summary.json
+
+Console files:
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-W1-console.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-M1-console.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-M2-console.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/05_K6_RAW/SPRING_BOOT/EV-K6-SB-READ-VU20-M3-console.txt
+
+Monitoring files:
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-W1-pidstat.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-M1-pidstat.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-M2-pidstat.txt
+~/Documents/Research/v5/FPR_EVIDENCE_23090383/06_RESOURCE_MONITORING/SPRING_BOOT/EV-RES-SB-READ-VU20-M3-pidstat.txt
+
+Tables for read-heavy files to fill:
+- Table 4.5
+- Appendix C.1
+- Appendix C.2
+- Appendix C.3
+- Table 5.3
+- Table 5.6
+
+
